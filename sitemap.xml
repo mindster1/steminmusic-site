@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://steminmusic.com/</loc></url>
-  <url><loc>https://steminmusic.com/about/</loc></url>
-  <url><loc>https://steminmusic.com/live/</loc></url>
-  <url><loc>https://steminmusic.com/music/</loc></url>
-  <url><loc>https://steminmusic.com/visuals/</loc></url>
-  <url><loc>https://steminmusic.com/contact/</loc></url>
-  <url><loc>https://steminmusic.com/policy/</loc></url>
-  <url><loc>https://steminmusic.com/booking/</loc></url>
-  <url><loc>https://steminmusic.com/press/</loc></url>
+  <url><loc>https://steminmusic.com/</loc><lastmod>2026-11-25</lastmod></url>
+  <url><loc>https://steminmusic.com/about/</loc><lastmod>2026-11-25</lastmod></url>
+  <url><loc>https://steminmusic.com/live/</loc><lastmod>2026-11-25</lastmod></url>
+  <url><loc>https://steminmusic.com/music/</loc><lastmod>2026-11-25</lastmod></url>
+  <url><loc>https://steminmusic.com/visuals/</loc><lastmod>2026-11-25</lastmod></url>
+  <url><loc>https://steminmusic.com/booking/</loc><lastmod>2026-11-25</lastmod></url>
+  <url><loc>https://steminmusic.com/press/</loc><lastmod>2026-11-25</lastmod></url>
+  <url><loc>https://steminmusic.com/contact/</loc><lastmod>2026-11-25</lastmod></url>
+  <url><loc>https://steminmusic.com/policy/</loc><lastmod>2026-11-25</lastmod></url>
 </urlset>

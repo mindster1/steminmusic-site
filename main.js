@@ -114,3 +114,22 @@
     .catch(function () { lists.forEach(function (el) {
       el.innerHTML = '<p class="shows-empty"><a href="https://www.bandsintown.com/a/stemin" target="_blank" rel="noopener">See all dates on Bandsintown</a></p>'; }); });
 })();
+
+// Tell search engines about upcoming shows (structured data built from data/shows.json).
+(function () {
+  fetch('/data/shows.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (shows) {
+    var now = new Date();
+    var ev = shows.filter(function (s) { return s.datetime && new Date(s.datetime) > now; }).map(function (s) {
+      return { '@type': 'MusicEvent', name: s.title || ('Stemin @ ' + s.venue), startDate: s.datetime,
+        eventStatus: 'https://schema.org/EventScheduled', eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+        location: { '@type': 'Place', name: s.venue, address: [s.city, s.country].filter(Boolean).join(', ') },
+        performer: { '@type': 'MusicGroup', name: 'Stemin', url: 'https://steminmusic.com/' },
+        image: 'https://steminmusic.com/img/og-image.jpg', url: s.url,
+        offers: { '@type': 'Offer', url: s.ticket || s.url, price: s.free ? 0 : undefined, priceCurrency: 'EUR', availability: 'https://schema.org/InStock' } };
+    });
+    if (!ev.length) return;
+    var el = document.createElement('script'); el.type = 'application/ld+json';
+    el.textContent = JSON.stringify({ '@context': 'https://schema.org', '@graph': ev });
+    document.head.appendChild(el);
+  }).catch(function () {});
+})();
