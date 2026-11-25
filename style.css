@@ -251,3 +251,45 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .press-photo figcaption{font-size:15px;margin-top:8px;line-height:1.6}
 @media (max-width:760px){.press-grid{grid-template-columns:1fr 1fr;gap:14px}.lead-text{font-size:18px}}
 .page-booking .cols.half img{max-height:560px;width:100%;object-fit:cover;object-position:center 30%}
+
+/* ---- mobile sizing pass 2 ---- */
+.logos a{width:100%;display:flex;justify-content:center;align-items:center}
+.logos img{max-width:100%;height:auto}
+@media (max-width:760px){
+  body{font-size:16px}
+  .feature-title{font-size:38px;letter-spacing:-.03em;line-height:1}
+  h2,h3{font-size:24px}
+  h4{font-size:18px}
+  .lead-text{font-size:17px}
+  .logos{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 20px;margin-top:28px}
+  .logos img{max-height:56px;max-width:140px}
+  .sec{padding:26px 0}
+  .sec.has-bg{padding:40px 0}
+  .button{padding:11px 22px;font-size:15px}
+  .single h4{font-size:15px}
+  .listen a{padding:6px 14px;font-size:14px}
+  .page-footer{font-size:14px}
+  .press-photo figcaption{font-size:13px}
+  .next-show{font-size:15px}
+  .caption{font-size:16px}
+}
+@media (max-width:360px){
+  .feature-title{font-size:32px}
+  h2,h3{font-size:22px}
+}
+@media (max-width:760px){
+  /* rows of singles / photos become swipeable cards */
+  .cols.thirds.singles,.cols.thirds.photos{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;
+    margin:0 -20px;padding:0 20px 8px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .cols.thirds.singles::-webkit-scrollbar,.cols.thirds.photos::-webkit-scrollbar{display:none}
+  .cols.thirds.singles>div,.cols.thirds.photos>div{flex:0 0 72%;scroll-snap-align:start}
+  .cols.thirds.photos.tall>div{flex-basis:64%}
+  /* two release covers side by side */
+  .page-music .cols.thirds:not(.singles){grid-template-columns:1fr 1fr}
+  .page-music .cols.thirds:not(.singles)>div:empty{display:none}
+  /* big single photos: cap the height */
+  .imgtext .media img{max-height:340px}
+  .cols.half img,.cols.third img{max-height:380px;width:100%;object-fit:cover;object-position:center 25%}
+  .page-home .cols.half>div:last-child img[alt="Stemin"]{max-height:300px}
+  .slideshow{aspect-ratio:4/3}
+}
