@@ -213,3 +213,5 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 }
 .photos img{object-position:center 30%}
 .photos.tall img{aspect-ratio:3/4}
+.logos{gap:60px 40px;margin-top:50px}
+.logos img{max-height:110px;max-width:220px}
