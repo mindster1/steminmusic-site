@@ -1,0 +1,195 @@
+/* Stemin – styled after the current steminmusic.com theme (Bandzoogle "Theodore"):
+   navy page, Anta headings, Poppins text, blue-grey pill buttons. */
+@font-face{font-family:'Anta';src:url(fonts/anta-latin-400-normal.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Poppins';src:url(fonts/poppins-latin-400-normal.woff2) format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'Poppins';src:url(fonts/poppins-latin-400-italic.woff2) format('woff2');font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:'Poppins';src:url(fonts/poppins-latin-700-normal.woff2) format('woff2');font-weight:700;font-display:swap}
+@font-face{font-family:'Poppins';src:url(fonts/poppins-latin-700-italic.woff2) format('woff2');font-weight:700;font-style:italic;font-display:swap}
+:root{
+  --page-bg:hsl(220,49%,8%);
+  --text:hsl(0,0%,100%);
+  --heading:hsl(0,10%,96%);
+  --link:hsl(0,10%,96%);
+  --button:hsl(221,28%,57%);
+  --button-hover:hsl(203,32%,22%);
+  --mobile-nav-bg:hsl(203,32%,22%);
+  --submenu-bg:hsl(220,46%,10%);
+  --heading-font:'Anta',sans-serif;
+  --content-font:'Poppins',sans-serif;
+  --wrap:1140px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--page-bg);color:var(--text);font:400 19px/1.5 var(--content-font);-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--link);text-decoration:underline}
+a:hover{opacity:.8}
+p{margin:0 0 1em}
+ul{margin:0 0 1em;padding-left:1.4em}
+h1,h2,h3,h4{font-family:var(--heading-font);font-weight:400;color:var(--heading);margin:0 0 .5em}
+h2{font-size:31px;line-height:1.3}
+h3{font-size:31px;line-height:1.3}
+h4{font-size:20px;line-height:1.4}
+.feature-title{font-size:72px;line-height:.9;letter-spacing:-.05em;margin-bottom:.4em}
+.center{text-align:center}
+
+/* header: full-screen photo, nav on top, logo + social icons centred */
+.page-header{position:relative;min-height:70vh;display:flex;flex-direction:column;isolation:isolate;overflow:hidden;background:var(--page-bg)}
+.page-header.landing{min-height:100vh;min-height:100svh}
+.header-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:-1}
+.nav-bar{display:flex;justify-content:center;padding:22px 20px;position:relative;z-index:5}
+.nav ul{list-style:none;margin:0;padding:0;display:flex;gap:38px}
+.nav li{position:relative}
+.nav a{font-family:var(--heading-font);font-size:19px;color:#fff;text-decoration:none}
+.nav a[aria-current]{text-decoration:underline;text-underline-offset:6px}
+.nav .has-sub ul{display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);background:var(--submenu-bg);padding:10px 18px;margin-top:8px}
+.nav .has-sub:hover ul,.nav .has-sub:focus-within ul{display:block}
+.header-title{flex:1;display:flex;align-items:center;justify-content:center;padding:20px}
+.logo{width:min(77vw,900px)}
+.socials{display:flex;justify-content:center;flex-wrap:wrap;gap:18px;padding:0 20px 30px}
+.socials a{display:block;width:19px;height:19px;color:#fff}
+.socials svg{width:100%;height:100%;fill:currentColor}
+.menu{display:none;background:none;border:0;width:44px;height:44px;cursor:pointer;position:relative;z-index:60}
+.menu span{position:absolute;left:10px;right:10px;height:2px;background:#fff}
+.menu span:nth-child(1){top:14px}.menu span:nth-child(2){top:21px}.menu span:nth-child(3){top:28px}
+@media (max-width:760px){
+  .nav-bar{justify-content:flex-end;padding:12px}
+  .menu{display:block}
+  .nav{position:fixed;inset:0;background:var(--mobile-nav-bg);display:none;align-items:center;justify-content:center;z-index:50}
+  .nav.open{display:flex}
+  .nav ul{flex-direction:column;align-items:center;gap:22px}
+  .nav a{font-size:26px}
+  .nav .has-sub ul{display:block;position:static;transform:none;background:none;padding:12px 0 0;margin:0}
+  .nav .has-sub ul a{font-size:18px}
+  .logo{width:80vw}
+  .page-header{min-height:55vh}
+}
+
+/* sections */
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 30px;position:relative}
+.sec{position:relative;padding:40px 0;isolation:isolate;overflow:hidden}
+.sec.has-bg{padding:70px 0}
+.sec-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.16;z-index:-1}
+.cols{display:grid;gap:30px;align-items:start}
+.cols.half{grid-template-columns:1fr 1fr;align-items:center}
+.cols.third{grid-template-columns:1fr 2fr;align-items:center}
+.cols.thirds{grid-template-columns:repeat(3,1fr)}
+.imgtext{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.imgtext .media img{aspect-ratio:1;object-fit:cover;width:100%}
+.single img{aspect-ratio:1;object-fit:cover;width:100%;margin-bottom:18px}
+.single h3{margin-bottom:.2em}
+.single h4{font-family:var(--content-font);font-size:17px;margin-bottom:1em}
+.narrow{max-width:620px}
+.caption{font-family:var(--heading-font);margin:12px 0}
+@media (max-width:760px){
+  .cols.half,.cols.third,.cols.thirds,.imgtext{grid-template-columns:1fr}
+  .cols>div:empty{display:none}
+  .feature-title{font-size:50px}
+  body{font-size:17px}
+  .sec{padding:30px 0}
+}
+
+/* buttons */
+.button{display:inline-block;background:var(--button);color:#fff;border:0;border-radius:999px;padding:12px 30px;
+  font:400 17px/1.2 var(--content-font);text-decoration:none;cursor:pointer;transition:background .2s}
+.button:hover{background:var(--button-hover);opacity:1}
+
+/* video */
+.video{position:relative;aspect-ratio:16/9;background:#000}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+
+/* slideshow */
+.slideshow{position:relative;aspect-ratio:3/2;background:#000;overflow:hidden}
+.slideshow img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .5s}
+.slideshow img.on{opacity:1}
+.slideshow button{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.35);color:#fff;border:0;
+  font-size:40px;line-height:1;width:50px;height:70px;cursor:pointer}
+.slideshow .prev{left:0}.slideshow .next{right:0}
+
+/* gallery */
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.gallery a{display:block;aspect-ratio:1;overflow:hidden}
+.gallery img{width:100%;height:100%;object-fit:cover}
+.lightbox{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.92);display:grid;place-items:center;padding:30px}
+.lightbox[hidden]{display:none}
+.lightbox img{max-height:90vh}
+.lightbox button{position:absolute;top:10px;right:18px;background:none;border:0;color:#fff;font-size:40px;cursor:pointer}
+
+/* forms */
+.form{display:grid;gap:14px;text-align:left}
+.form label{display:grid;gap:4px}
+.form input,.form textarea{width:100%;font:inherit;font-size:17px;color:#222;background:#fff;border:1px solid #ccc;border-radius:3px;padding:10px 12px}
+.form .button{justify-self:start}
+.signup{grid-template-columns:1fr auto;max-width:480px;margin:0 auto}
+.sr{position:absolute;left:-9999px}
+@media (max-width:520px){.signup{grid-template-columns:1fr}.signup .button{justify-self:center}}
+.bit{margin-top:20px}
+
+/* footer */
+.page-footer{padding:40px 0 30px;font-size:15px}
+.page-footer p{margin-bottom:.6em}
+.page-footer .socials{padding:16px 0}
+.footer-nav{display:flex;justify-content:center;flex-wrap:wrap;gap:22px}
+.footer-nav a{font-family:var(--heading-font);text-decoration:none}
+
+/* cookie consent */
+.cookie-banner{position:fixed;left:16px;right:16px;bottom:16px;z-index:90;max-width:720px;margin:0 auto;
+  background:var(--submenu-bg);border:1px solid hsla(0,0%,100%,.2);padding:18px 22px;font-size:16px;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+.cookie-banner[hidden]{display:none}
+.cookie-banner p{margin:0 0 12px}
+.cookie-actions{display:flex;gap:12px;flex-wrap:wrap}
+.button.outline{background:transparent;border:1px solid var(--button);color:#fff}
+.button.outline:hover{background:var(--button-hover)}
+.consent-ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  padding:16px;font-size:15px;background:hsl(220,40%,12%)}
+.consent-ph p{margin:0 0 10px}
+.bit-ph{position:static;padding:30px 16px}
+table.cookies{width:100%;border-collapse:collapse;font-size:15px;margin:0 0 1em}
+table.cookies th,table.cookies td{border:1px solid hsla(0,0%,100%,.2);padding:8px 10px;text-align:left;vertical-align:top}
+@media (max-width:600px){table.cookies{font-size:13px}}
+
+/* ---- mobile-friendliness pass ---- */
+/* comfortable tap targets (44px) without changing the look */
+.socials{gap:4px}
+.socials a{width:44px;height:44px;display:flex;align-items:center;justify-content:center}
+.socials svg{width:19px;height:19px}
+.footer-nav{gap:0 6px}
+.footer-nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 8px}
+.page-footer p a{display:inline-block;padding:10px 0}
+.lightbox button{width:48px;height:48px}
+.slideshow{touch-action:pan-y}
+.header-title a{display:block}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+.wrap{padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right))}
+@media (max-width:760px){
+  .page-header{min-height:60vh}
+  .page-header.landing{min-height:100vh;min-height:100svh}
+  .header-bg{object-position:center 30%}
+  .socials svg{width:22px;height:22px}
+  .slideshow button{width:40px;height:56px;font-size:32px}
+  .gallery{grid-template-columns:1fr 1fr;gap:6px}
+  .cookie-banner{left:10px;right:10px;bottom:max(10px,env(safe-area-inset-bottom));padding:16px;font-size:15px}
+  .cookie-actions .button{flex:1;text-align:center}
+  .imgtext,.cols{gap:20px}
+  .sec.has-bg{padding:50px 0}
+  /* cookie table becomes stacked cards */
+  table.cookies,table.cookies tbody,table.cookies tr,table.cookies td{display:block;width:100%}
+  table.cookies thead{display:none}
+  table.cookies tr{border:1px solid hsla(0,0%,100%,.2);margin-bottom:12px;padding:6px 0}
+  table.cookies td{border:0;padding:4px 12px;font-size:15px}
+  table.cookies td::before{content:attr(data-label);display:block;font-family:var(--heading-font);font-size:13px;opacity:.75}
+}
+@media (max-width:360px){
+  .feature-title{font-size:42px}
+  h2,h3{font-size:26px}
+  .button{padding:12px 22px}
+}
+@media (max-width:760px){
+  .nav .has-sub{text-align:center}
+  .nav .has-sub ul{text-align:center}
+  .nav a{display:inline-block;padding:6px 10px}
+  .menu span{transition:transform .2s,opacity .2s}
+  .menu[aria-expanded=true] span:nth-child(1){top:21px;transform:rotate(45deg)}
+  .menu[aria-expanded=true] span:nth-child(2){opacity:0}
+  .menu[aria-expanded=true] span:nth-child(3){top:21px;transform:rotate(-45deg)}
+}
