@@ -51,12 +51,6 @@
       v.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + v.getAttribute('data-yt') +
         '?rel=0" title="Stemin video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
     });
-    if (document.querySelector('.bit-widget-initializer') && !document.getElementById('bit-js')) {
-      document.querySelectorAll('.bit-ph').forEach(function (p) { p.remove(); });
-      var s = document.createElement('script');
-      s.id = 'bit-js'; s.charset = 'utf-8'; s.src = 'https://widgetv3.bandsintown.com/main.min.js';
-      document.body.appendChild(s);
-    }
   }
   function accept() { set('accepted'); banner.hidden = true; loadEmbeds(); }
   function decline() { set('declined'); banner.hidden = true; }
@@ -72,10 +66,51 @@
   else if (c !== 'declined') banner.hidden = false;
 })();
 
-// Hide the "next show" strip once the show has passed.
+
+// Shows: read data/shows.json (updated from Bandsintown every 6 hours by GitHub)
+// and fill the "next show" strip and the show lists. No third-party cookies.
 (function () {
-  document.querySelectorAll('.next-show[data-until]').forEach(function (el) {
-    var until = new Date(el.getAttribute('data-until') + 'T00:00:00');
-    if (new Date() >= until) { var sec = el.closest('.sec'); (sec || el).hidden = true; if (sec) sec.style.display = 'none'; }
-  });
+  var lists = document.querySelectorAll('[data-shows]'), slots = document.querySelectorAll('[data-next-show]');
+  if (!lists.length && !slots.length) return;
+  var DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  function parse(s) { // "2026-11-27T22:00:00" = local time at the venue; keep it as written
+    var m = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/.exec(s || '');
+    if (!m) return null;
+    var d = new Date(+m[1], +m[2] - 1, +m[3]);
+    return { date: d, end: new Date(+m[1], +m[2] - 1, +m[3] + 1, 6),
+             day: DAYS[d.getDay()] + ' ' + (+m[3]) + ' ' + MONTHS[+m[2] - 1], time: m[4] + ':' + m[5] };
+  }
+  function esc(t) { var e = document.createElement('span'); e.textContent = t || ''; return e.innerHTML; }
+  function render(shows) {
+    var now = new Date();
+    shows = shows.map(function (s) { s.p = parse(s.datetime); return s; })
+                 .filter(function (s) { return s.p && s.p.end > now; })
+                 .sort(function (a, b) { return a.p.date - b.p.date; });
+    lists.forEach(function (el) {
+      if (!shows.length) { el.innerHTML = '<p class="shows-empty">No upcoming shows announced right now.</p>'; return; }
+      el.innerHTML = '<ul class="shows">' + shows.map(function (s) {
+        var title = s.title || ('Stemin @ ' + s.venue);
+        var place = [s.venue, s.city].filter(Boolean).join(', ');
+        var btn = s.free ? '<a class="button small" href="' + esc(s.url) + '" target="_blank" rel="noopener">Free · RSVP</a>'
+                         : '<a class="button small" href="' + esc(s.ticket || s.url) + '" target="_blank" rel="noopener">Tickets</a>';
+        return '<li><span class="sh-date"><strong>' + esc(s.p.day) + '</strong> · ' + esc(s.p.time) + '</span>' +
+               '<span class="sh-title">' + esc(title) + '</span><span class="sh-place">' + esc(place) + '</span>' + btn + '</li>';
+      }).join('') + '</ul>';
+    });
+    slots.forEach(function (el) {
+      var sec = el.closest('.sec');
+      if (!shows.length) { if (sec) sec.style.display = 'none'; return; }
+      var s = shows[0], title = s.title || ('Stemin @ ' + s.venue);
+      el.innerHTML = '<a class="next-show" href="' + esc(s.url) + '" target="_blank" rel="noopener">' +
+        '<span class="ns-label">Next show</span><span class="ns-date">' + esc(s.p.day) + ' · ' + esc(s.p.time) + '</span>' +
+        '<span class="ns-title">' + esc(title) + '</span><span class="ns-place">' + esc([s.venue, s.city].filter(Boolean).join(', ')) + '</span>' +
+        (s.free ? '<span class="ns-note">Free</span>' : '') + '</a>';
+      if (sec) sec.style.display = '';
+    });
+  }
+  slots.forEach(function (el) { var sec = el.closest('.sec'); if (sec) sec.style.display = 'none'; });
+  fetch('/data/shows.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(render)
+    .catch(function () { lists.forEach(function (el) {
+      el.innerHTML = '<p class="shows-empty"><a href="https://www.bandsintown.com/a/stemin" target="_blank" rel="noopener">See all dates on Bandsintown</a></p>'; }); });
 })();
