@@ -71,3 +71,11 @@
   if (c === 'accepted') loadEmbeds();
   else if (c !== 'declined') banner.hidden = false;
 })();
+
+// Hide the "next show" strip once the show has passed.
+(function () {
+  document.querySelectorAll('.next-show[data-until]').forEach(function (el) {
+    var until = new Date(el.getAttribute('data-until') + 'T00:00:00');
+    if (new Date() >= until) { var sec = el.closest('.sec'); (sec || el).hidden = true; if (sec) sec.style.display = 'none'; }
+  });
+})();

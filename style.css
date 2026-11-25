@@ -216,3 +216,38 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .logos{gap:60px 40px;margin-top:50px}
 .logos img{max-height:110px;max-width:220px}
 .logo-wrap{margin:0;line-height:0}
+
+/* header video */
+.header-video{z-index:-1}
+.page-header.landing::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(5,9,20,.35),rgba(5,9,20,.15) 40%,rgba(5,9,20,.55))}
+@media (prefers-reduced-motion:reduce){.header-video{display:none}}
+
+/* next show strip */
+.sec:has(.next-show){padding:24px 0}
+.next-show{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 22px;text-decoration:none;color:#fff;
+  border:1px solid hsla(0,0%,100%,.25);border-radius:999px;padding:14px 28px;max-width:900px;margin:0 auto;transition:background .2s}
+.next-show:hover{background:var(--button-hover);opacity:1}
+.next-show[hidden]{display:none}
+.ns-label{font-family:var(--heading-font);text-transform:uppercase;letter-spacing:.08em;background:var(--button);border-radius:999px;padding:4px 14px;font-size:15px}
+.ns-date{font-weight:700}
+.ns-place{opacity:.8}
+.ns-note{font-size:14px;border:1px solid hsla(0,0%,100%,.4);border-radius:999px;padding:2px 12px}
+@media (max-width:760px){.next-show{border-radius:18px;flex-direction:column;gap:4px;padding:16px}}
+
+/* listen links */
+.listen{margin-top:30px;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:10px}
+.listen span{opacity:.75;margin-right:4px}
+.listen a{text-decoration:none;border:1px solid hsla(0,0%,100%,.3);border-radius:999px;padding:8px 18px;font-size:16px;min-height:44px;display:inline-flex;align-items:center}
+.listen a:hover{background:var(--button);border-color:var(--button);opacity:1}
+
+/* booking + press */
+.lead-text{font-size:22px;max-width:760px;margin:0 auto 1.2em}
+.small-note{font-size:15px;opacity:.8}
+.button+.button{margin-left:10px}
+@media (max-width:520px){.button+.button{margin:10px 0 0}}
+.press-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:24px}
+.press-photo{margin:0}
+.press-photo img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 25%}
+.press-photo figcaption{font-size:15px;margin-top:8px;line-height:1.6}
+@media (max-width:760px){.press-grid{grid-template-columns:1fr 1fr;gap:14px}.lead-text{font-size:18px}}
+.page-booking .cols.half img{max-height:560px;width:100%;object-fit:cover;object-position:center 30%}
